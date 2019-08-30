@@ -1,244 +1,118 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <title>Hammock Hang Calculator by Derek Hansen</title>
 
+    <link rel="stylesheet" href="app.css" />
 
-    <!-- Coding by Dan Wilson - codality.com -->
+    <script defer src="node_modules/mathjs/dist/math.min.js"></script>
+    <script defer src="./app.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script src="node_modules/mathjs/dist/math.min.js"></script>
-    <script src="./app.js" defer></script>
+    <style type="text/css" title="text/css" media="all"></style>
+  </head>
 
-    <style type="text/css" title="text/css" media="all">
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-        }
-
-        #hammock {
-            width: 822px;
-            height: 540px;
-            text-align: center;
-            margin: 0px auto;
-            padding: 0px;
-            position: relative;
-            background-color: #fff;
-            background-image: url(xhang-calc-web.png);
-            background-repeat: no-repeat;
-            background-position: top left
-        }
-
-        .small {
-            font-size: 20px;
-            display: block
-        }
-
-        #hang-weight,
-        #hang-angle,
-        #ridgeline,
-        #suspension-length,
-        #hang-height,
-        #sit-height,
-        #tree-distance,
-        #shear,
-        #tensile {
-            font-size: 30px;
-            padding: 10px 0px;
-            background-color: #ed2024;
-            width: 100px;
-            text-align: center;
-            margin: 3px;
-            position: absolute;
-            color: #fff
-        }
-
-        #the-form {
-            position: absolute;
-            top: 540px;
-            left: 0px;
-            width: 100%;
-            padding: 10px;
-            margin: 0px auto;
-            color: #fff;
-            font-size: 12px;
-            background: #000
-        }
-
-        #the-form table {
-            margin: 0px auto
-        }
-
-        #hang-weight {
-            background-color: #8cc641;
-            top: 436px;
-            left: 320px
-        }
-
-        #hang-angle {
-            top: 380px;
-            left: 690px;
-            background-color: #28a9ed
-        }
-
-        #tree-distance {
-            top: 111px;
-            left: 369px
-        }
-
-        #ridgeline {
-            top: 235px;
-            left: 369px
-        }
-
-        #sit-height {
-            top: 465px;
-            left: 503px
-        }
-
-        #suspension-length {
-            top: 437px;
-            left: 150px
-        }
-
-        #hang-height {
-            top: 101px;
-            left: 0px
-        }
-
-        #shear {
-            background-color: #8cc641;
-            top: 172px;
-            left: 136px
-        }
-
-        #tensile {
-            background-color: #8cc641;
-            top: 178px;
-            left: 679px
-        }
-
-        .right {
-            text-align: right
-        }
-
-        .center {
-            text-align: center
-        }
-
-        p cite {
-            font-size: 10px
-        }
-
-        div.row {
-            clear: both;
-            padding-top: 1px;
-            font-size: 12px;
-            background-color: #efeadb
-        }
-
-        div.row span.label {
-            float: left;
-            width: 150px;
-            height: 30px;
-            text-align: right
-        }
-
-        div.row span.formw {
-            float: right;
-            width: 250px;
-            margin-left: 10px;
-            text-align: left;
-            height: 30px
-        }
-
-    </style>
-
-
-</head>
-
-<body onLoad="return hang();">
-
+  <body>
     <div id="hammock">
+      <div id="hang-angle"><span class="small"></span></div>
+      <div id="hang-weight"><span class="small"></span></div>
+      <div id="ridgeline"><span class="small"></span></div>
+      <div id="suspension-length"><span class="small"></span></div>
+      <div id="hang-height"><span class="small"></span></div>
+      <div id="sit-height"><span class="small"></span></div>
+      <div id="tree-distance"><span class="small"></span></div>
+      <div id="shear"><span class="small"></span></div>
+      <div id="tensile"><span class="small"></span></div>
 
-        <div id="hang-angle"><span class="small"></span></div>
-        <div id="hang-weight"><span class="small"></span></div>
-        <div id="ridgeline"><span class="small"></span></div>
-        <div id="suspension-length"><span class="small"></span></div>
-        <div id="hang-height"><span class="small"></span></div>
-        <div id="sit-height"><span class="small"></span></div>
-        <div id="tree-distance"><span class="small"></span></div>
-        <div id="shear"><span class="small"></span></div>
-        <div id="tensile"><span class="small"></span></div>
+      <div id="the-form">
+        <form name="compute" method="post">
+          <table>
+            <tr>
+              <td colspan="2" class="center">
+                <input
+                  type="radio"
+                  name="units"
+                  value="0"
+                  id="english"
+                  checked="CHECKED"
+                />
+                <label for="english"> English </label>
+                <input type="radio" name="units" value="1" id="metric" />
+                <label for="metric"> Metric </label>
+              </td>
+            </tr>
 
-        <div id="the-form">
-            <form name="compute" method="post" onSubmit="return hang();">
-                <table>
+            <tr>
+              <td align="right">Distance between trees</td>
+              <td align="left">
+                <input type="text" id="dt" name="dt" size="5" value="15" />
+                (ft/m)
+              </td>
+            </tr>
 
-                    <tr>
-                        <td colspan="2" class="center">
-                            <input type="radio" name="units" value="0" id="english" checked="CHECKED"
-                                onClick="setEnglish()" /> <label for="english"> English </label>
-                            <input type="radio" name="units" value="1" id="metric" onClick="setMetric()" /> <label
-                                for="metric"> Metric </label>
-                        </td>
-                    </tr>
+            <tr>
+              <td align="right">
+                <select id="list" name="list">
+                  <option value="ridgeline">Ridgeline length</option>
+                  <option value="hammock">Hammock length</option>
+                </select>
+              </td>
+              <td align="left">
+                <input type="text" id="len" name="len" size="5" value="108" />
+                (in/cm)
+              </td>
+            </tr>
 
-                    <tr>
-                        <td align="right">Distance between trees</td>
-                        <td align="left"><input type="text" id="dt" name="dt" size="5" value="15" onblur="hang()" />
-                            (ft/m)</td>
-                    </tr>
+            <tr>
+              <td align="right">Preferred Sit Height</td>
+              <td align="left">
+                <input type="text" id="sit" name="sit" size="5" value="18" />
+                (in/cm)
+              </td>
+            </tr>
 
-                    <tr>
-                        <td align="right">
-                            <select id="list" name="list">
-                                <option value="ridgeline">Ridgeline length</option>
-                                <option value="hammock">Hammock length</option>
-                            </select>
-                        </td>
-                        <td align="left"><input type="text" id="len" name="len" size="5" value="108" /> (in/cm)</td>
-                    </tr>
+            <tr>
+              <td align="right">Weight in hammock</td>
+              <td align="left">
+                <input
+                  type="text"
+                  id="weight"
+                  name="weight"
+                  size="5"
+                  value="200"
+                />
+                (lbs/kg)
+              </td>
+            </tr>
 
-                    <tr>
-                        <td align="right">Preferred Sit Height</td>
-                        <td align="left"><input type="text" id="sit" name="sit" size="5" value="18" onblur="hang()" />
-                            (in/cm)</td>
-                    </tr>
+            <tr>
+              <td align="right">Hang angle</td>
+              <td align="left">
+                <select id="angle" name="angle">
+                  <option value="5">5</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="30" selected="selected">30</option>
+                  <option value="45">45</option>
+                </select>
+                &deg;
+              </td>
+            </tr>
+          </table>
+        </form>
 
-                    <tr>
-                        <td align="right">Weight in hammock</td>
-                        <td align="left"><input type="text" id="weight" name="weight" size="5" value="200"
-                                onblur="hang()" /> (lbs/kg)</td>
-                    </tr>
+        <p><strong>Click TAB to auto-refresh the form.</strong></p>
 
-                    <tr>
-                        <td align="right">Hang angle</td>
-                        <td align="left">
-                            <select id="angle" name="angle" onchange="hang()">
-                                <option value="5">5</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="30" selected="selected">30</option>
-                                <option value="45">45</option>
-                            </select> &deg;
-                        </td>
-                    </tr>
-
-                </table>
-            </form>
-
-            <p><strong>Click TAB to auto-refresh the form.</strong></p>
-
-            <p><cite>DISCLAIMER: This program is for estimating and entertainment purposes only.</cite></p>
-        </div> <!-- Form -->
-
-    </div> <!-- Hammock -->
-
-</body>
-
+        <p>
+          <cite
+            >DISCLAIMER: This program is for estimating and entertainment
+            purposes only.</cite
+          >
+        </p>
+      </div>
+      <!-- Form -->
+    </div>
+    <!-- Hammock -->
+  </body>
 </html>

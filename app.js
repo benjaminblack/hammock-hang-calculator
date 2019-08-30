@@ -1,9 +1,10 @@
-/* global math */
+const DEFAULT_DISTANCE_BETWEEN_TREES = 15.0;
+const DEFAULT_RIDGELINE_LENGTH = 108.0;
+const DEFAULT_SIT_HEIGHT = 18.0;
+const DEFAULT_HANG_ANGLE = 30.0;
 
-const defaultDistanceBetweenTrees = 15.0;
-const defaultRidgelineLength = 108.0;
-const defaultSitHeight = 18.0;
-const defaultHangAngle = 30.0;
+const UNITS_IMPERIAL = 'English';
+const UNITS_METRIC = 'Metric';
 
 const distanceBetweenTreesInput = document.querySelector('#dt');
 const ridgelineLengthInput = document.querySelector('#len');
@@ -16,9 +17,9 @@ function getUnitsType() {
   const type = +document.querySelector('input[type="radio"][name="units"]:checked').value;
 
   if (type === 0) {
-    return 'English';
+    return UNITS_IMPERIAL;
   } else {
-    return 'Metric';
+    return UNITS_METRIC;
   }
 }
 
@@ -58,16 +59,16 @@ function hang() {
   const weight = +weightInput.value;
   const units = getUnitsType();
 
-  hangAngleInput.value = hangAngleInput.value || defaultHangAngle;
+  hangAngleInput.value = hangAngleInput.value || DEFAULT_HANG_ANGLE;
 
-  if (units === 'English') {
-    distanceBetweenTreesInput.value = distanceBetweenTreesInput.value || defaultDistanceBetweenTrees;
-    ridgelineLengthInput.value = ridgelineLengthInput.value || defaultRidgelineLength;
-    sitHeightInput.value = sitHeightInput.value || defaultSitHeight;
+  if (units === UNITS_IMPERIAL) {
+    distanceBetweenTreesInput.value = distanceBetweenTreesInput.value || DEFAULT_DISTANCE_BETWEEN_TREES;
+    ridgelineLengthInput.value = ridgelineLengthInput.value || DEFAULT_RIDGELINE_LENGTH;
+    sitHeightInput.value = sitHeightInput.value || DEFAULT_SIT_HEIGHT;
   } else {
-    distanceBetweenTreesInput.value = distanceBetweenTreesInput.value || math.unit(defaultDistanceBetweenTrees, 'ft').toNumber('m');
-    ridgelineLengthInput.value = ridgelineLengthInput.value || math.unit(defaultRidgelineLength, 'in').toNumber('cm');
-    sitHeightInput.value = sitHeightInput.value || math.unit(defaultSitHeight, 'in').toNumber('cm');
+    distanceBetweenTreesInput.value = distanceBetweenTreesInput.value || math.unit(DEFAULT_DISTANCE_BETWEEN_TREES, 'ft').toNumber('m');
+    ridgelineLengthInput.value = ridgelineLengthInput.value || math.unit(DEFAULT_RIDGELINE_LENGTH, 'in').toNumber('cm');
+    sitHeightInput.value = sitHeightInput.value || math.unit(DEFAULT_SIT_HEIGHT, 'in').toNumber('cm');
   }
 
   var d123 = +distanceBetweenTreesInput.value;
@@ -80,30 +81,52 @@ function hang() {
 
   const sitHeight = +sitHeightInput.value;
 
-  const distanceBetweenTrees = units === 'English' ? math.unit(d123, 'ft').toNumber('in') : math.unit(d123, 'm').toNumber('cm');
+  const distanceBetweenTrees = units === UNITS_IMPERIAL ? math.unit(d123, 'ft').toNumber('in') : math.unit(d123, 'm').toNumber('cm');
 
   var distanceBetweenTrees_height = Math.tan((hangAngleInput.value * Math.PI) / 180) * (distanceBetweenTrees / 2) + sitHeight;
   var sp = (distanceBetweenTrees - ridgelineLength) / 2 / Math.cos((hangAngleInput.value * Math.PI) / 180);
 
-  if (getUnitsType() === 'Metric') {
-    $('#ridgeline span').html(ridgelineLength.toFixed(1) + ' cm');
-    $('#suspension-length span').html(sp.toFixed(1) + ' cm');
-    $('#hang-height span').html(distanceBetweenTrees_height.toFixed(1) + ' cm');
-    $('#sit-height span').html(sitHeight + ' cm');
-    $('#tree-distance span').html(d123 + ' m');
-    $('#tensile span').html(tension() + ' kg');
-    $('#shear span').html(shear() + ' kg');
-    $('#hang-weight span').html(weight + ' kg');
+  if (getUnitsType() === UNITS_METRIC) {
+    document.querySelector('#ridgeline span').innerHTML = (ridgelineLength.toFixed(1) + ' cm');
+    document.querySelector('#suspension-length span').innerHTML = (sp.toFixed(1) + ' cm');
+    document.querySelector('#hang-height span').innerHTML = (distanceBetweenTrees_height.toFixed(1) + ' cm');
+    document.querySelector('#sit-height span').innerHTML = (sitHeight + ' cm');
+    document.querySelector('#tree-distance span').innerHTML = (d123 + ' m');
+    document.querySelector('#tensile span').innerHTML = (tension() + ' kg');
+    document.querySelector('#shear span').innerHTML = (shear() + ' kg');
+    document.querySelector('#hang-weight span').innerHTML = (weight + ' kg');
   } else {
-    $('#ridgeline span').html(ridgelineLength.toFixed(0) + ' in');
-    $('#suspension-length span').html(sp.toFixed(1) + ' in');
-    $('#hang-height span').html(distanceBetweenTrees_height.toFixed(1) + ' in');
-    $('#sit-height span').html(sitHeight + ' in');
-    $('#tree-distance span').html(d123 + ' ft');
-    $('#tensile span').html(tension() + ' lbs');
-    $('#shear span').html(shear() + ' lbs');
-    $('#hang-weight span').html(weight + ' lbs');
+    document.querySelector('#ridgeline span').innerHTML = (ridgelineLength.toFixed(0) + ' in');
+    document.querySelector('#suspension-length span').innerHTML = (sp.toFixed(1) + ' in');
+    document.querySelector('#hang-height span').innerHTML = (distanceBetweenTrees_height.toFixed(1) + ' in');
+    document.querySelector('#sit-height span').innerHTML = (sitHeight + ' in');
+    document.querySelector('#tree-distance span').innerHTML = (d123 + ' ft');
+    document.querySelector('#tensile span').innerHTML = (tension() + ' lbs');
+    document.querySelector('#shear span').innerHTML = (shear() + ' lbs');
+    document.querySelector('#hang-weight span').innerHTML = (weight + ' lbs');
   }
-  $('#hang-angle span').html(hangAngleInput.value + '&deg;');
+
+  document.querySelector('#hang-angle span').innerHTML = (hangAngleInput.value + '&deg;');
+
   return false;
 }
+
+async function main() {
+  hang();
+  document.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    hang();
+  });
+  document.querySelector('#english').addEventListener('click', () => setEnglish());
+  document.querySelector('#metric').addEventListener('click', () => setMetric());
+
+  [
+    '#dt',
+    '#sit',
+    '#weight',
+  ].forEach((el) => document.querySelector(el).addEventListener('blur', () => hang()));
+
+  document.querySelector('#angle').addEventListener('change', () => hang());
+}
+
+main().catch(console.error);
