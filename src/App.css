@@ -28,6 +28,8 @@ body {
 .units-imperial,
 .label-distance-between-trees,
 .label-preferred-sit-height,
-.label-weight-in-hammock {
+.label-weight-in-hammock,
+.select-ridgeline-or-hammock-length,
+.label-hang-angle {
   justify-self: end;
 }
