@@ -25,10 +25,21 @@
   transform: translate(-50%, -50%);
   background-color: black;
   font-weight: bold;
-  font-size: 1.5rem;
   line-height: 1;
   color: white;
   background-color: var(--bgcolor, black);
+}
+
+@media (max-width: 822px) {
+  .hang-calc {
+    font-size: calc(100vw * (4 / 149) + 1px * (288 / 149));
+  }
+}
+
+@media (min-width: 822px) {
+  .hang-calc {
+    font-size: 24px;
+  }
 }
 
 .hang-calc-angle {

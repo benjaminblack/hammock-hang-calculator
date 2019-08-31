@@ -4,13 +4,34 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 16px;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+@media (max-width: 822px) {
+  html,
+  body {
+    font-size: calc(100vw * (8 / 447) + 1px * (192 / 149));
+  }
+}
+
+@media (min-width: 822px) {
+  html,
+  body {
+    font-size: 16px;
+  }
 }
 
 #root {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 2rem;
 }
 
 .hang-app {

@@ -8,6 +8,22 @@
   color: white;
 }
 
+@media (max-width: 822px) {
+  .hang-form {
+    font-size: calc(100vw * (4 / 447) + 1px * (1586 / 149));
+  }
+}
+
+@media (min-width: 822px) {
+  .hang-form {
+    font-size: 18px;
+  }
+}
+
+.hang-form input {
+  max-width: 8ch;
+}
+
 .units-imperial,
 .label-distance-between-trees,
 .label-preferred-sit-height,
@@ -15,6 +31,8 @@
 .length-choice,
 .label-hang-angle {
   justify-self: end;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .units {

@@ -28,12 +28,12 @@ const HangApp = () => {
       setDistanceBetweenTrees(math.unit(distanceBetweenTrees, 'm').toNumber('ft'));
       setLength(math.unit(length, 'cm').toNumber('in'));
       setSitHeight(math.unit(sitHeight, 'cm').toNumber('in'));
-      setWeight(math.unit('kg').toNumber('lb'));
+      setWeight(math.unit(weight, 'kg').toNumber('lb'));
     } else {
       setDistanceBetweenTrees(math.unit(distanceBetweenTrees, 'ft').toNumber('m'));
       setLength(math.unit(length, 'in').toNumber('cm'));
       setSitHeight(math.unit(sitHeight, 'in').toNumber('cm'));
-      setWeight(math.unit('lb').toNumber('kg'));
+      setWeight(math.unit(weight, 'lb').toNumber('kg'));
     }
   };
 
