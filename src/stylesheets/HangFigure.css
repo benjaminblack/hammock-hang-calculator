@@ -3,9 +3,39 @@
   margin: 0;
 }
 
+@media (min-width: 822px) {
+  .hang-figure {
+    width: 822px;
+    height: 540px;
+  }
+}
+
+@media (max-width: 822px) {
+  .hang-figure {
+    width: 100vw;
+    height: calc(100vw / (822 / 540));
+  }
+}
+
 .hang-graphic {
-  display: block;
-  max-width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  visibility: hidden;
+  filter: blur(10px);
+}
+
+.hang-graphic:not(.loaded):not(.lqip) {
+  visibility: hidden;
+}
+
+.hang-graphic.loaded:not(.lqip) {
+  visibility: visible;
+  transition: filter 0.1s ease-out;
+  filter: none;
 }
 
 .hang-calculations {
@@ -23,11 +53,9 @@
 .hang-calc {
   position: absolute;
   transform: translate(-50%, -50%);
-  background-color: black;
   font-weight: bold;
   line-height: 1;
   color: white;
-  background-color: var(--bgcolor, black);
   white-space: nowrap;
 }
 
@@ -42,24 +70,6 @@
     font-size: 24px;
     word-spacing: 0;
   }
-}
-
-.hang-calc-angle {
-  --bgcolor: #28a9e0;
-}
-
-.hang-calc-sit-height,
-.hang-calc-tree-distance,
-.hang-calc-hang-height,
-.hang-calc-ridgeline,
-.hang-calc-suspension-length {
-  --bgcolor: #ed2124;
-}
-
-.hang-calc-shear,
-.hang-calc-weight,
-.hang-calc-tension {
-  --bgcolor: #8cc540;
 }
 
 .hang-calc-angle {

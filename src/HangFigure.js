@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as math from 'mathjs';
 
 import hangCalculatorGraphic from './hang-calculator.png';
 import { unitSpan } from './lib';
 
-import { UNITS_IMPERIAL, LENGTH_CHOICE_RIDGELINE } from './constants';
+import { UNITS_IMPERIAL, LENGTH_CHOICE_RIDGELINE, HANG_GRAPHIC_LQIP } from './constants';
 
 import './stylesheets/HangFigure.css';
 
 const shear = (weight, angle) => weight / (2 * Math.tan(angle * Math.PI / 180.0));
 const tension = (weight, angle) => weight / (2 * Math.sin(angle * Math.PI / 180));
-const format = (num) => <span class="num">{num.toLocaleString('en', {maximumFractionDigits: 1})}</span>;
+const format = (num) => <span className="num">{num.toLocaleString('en', {maximumFractionDigits: 1})}</span>;
 
 const HangFigure = (props) => {
   const state = useSelector((state) => ({
@@ -23,6 +23,8 @@ const HangFigure = (props) => {
     units: state.units,
     weight: state.weight,
   }));
+
+  const [isGraphicLoaded, setGraphicLoaded] = useState(false);
 
   const length = state.lengthChoice === LENGTH_CHOICE_RIDGELINE 
     ? state.length
@@ -36,7 +38,8 @@ const HangFigure = (props) => {
 
   return (
     <figure className="hang-figure">
-      <img className="hang-graphic" src={hangCalculatorGraphic} alt="Hammock Hang Calculator"/>
+      <img className={`hang-graphic ${isGraphicLoaded ? 'loaded' : ''}`} src={hangCalculatorGraphic} alt="Hammock Hang Calculator" onLoad={() => setGraphicLoaded(true)}/>
+      {!isGraphicLoaded && <img className="hang-graphic lqip" src={HANG_GRAPHIC_LQIP} alt=""/>}
       <ul className="hang-calculations">
         <li className="hang-calc hang-calc-angle">
           {format(state.hangAngle)} <span className="units">&deg;</span>
