@@ -33,7 +33,7 @@ const HangForm = (props) => {
 
       <label className="label-distance-between-trees" htmlFor="input-distance-between-trees">Distance between trees</label>
       <div className="distance-between-trees">
-        <input type="number" step="1" id="input-distance-between-trees" name="input-distance-between-trees" value={state.distanceBetweenTrees.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setDistanceBetweenTrees(+e.target.value))}/>
+        <input type="number" min="0" step="1" id="input-distance-between-trees" name="input-distance-between-trees" value={state.distanceBetweenTrees.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setDistanceBetweenTrees(+e.target.value))}/>
         {unitSpan(state.units, 'ft', 'm')}
       </div>
 
@@ -42,19 +42,19 @@ const HangForm = (props) => {
         <option value={LENGTH_CHOICE_HAMMOCK}>{LENGTH_CHOICE_HAMMOCK}</option>
       </select>
       <div className="length">
-        <input type="number" step="1" name="length" value={state.length.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setLength(+e.target.value))}/>
+        <input type="number" min="0" step="1" name="length" value={state.length.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setLength(+e.target.value))}/>
         {unitSpan(state.units, 'in', 'cm')}
       </div>
 
       <label className="label-preferred-sit-height" htmlFor="input-preferred-sit-height">Preferred sit height</label>
       <div className="preferred-sit-height">
-        <input type="number" step="1" id="input-preferred-sit-height" name="input-preferred-sit-height" value={state.sitHeight.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setSitHeight(+e.target.value))}/>
+        <input type="number" min="0" step="1" id="input-preferred-sit-height" name="input-preferred-sit-height" value={state.sitHeight.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setSitHeight(+e.target.value))}/>
         {unitSpan(state.units, 'in', 'cm')}
       </div>
 
       <label className="label-weight-in-hammock" htmlFor="input-weight-in-hammock">Weight in hammock</label>
       <div className="weight-in-hammock">
-        <input type="number" step="1" id="input-weight-in-hammock" name="input-weight-in-hammock" value={state.weight.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setWeight(+e.target.value))}/>
+        <input type="number" min="0" step="1" id="input-weight-in-hammock" name="input-weight-in-hammock" value={state.weight.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setWeight(+e.target.value))}/>
         {unitSpan(state.units, 'lb', 'kg', true, state.weight)}
       </div>
 
