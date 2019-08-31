@@ -108,9 +108,9 @@
 }
 
 .hang-calc-tension {
-  left: 75.5%;
-  top: 49.5%;
-  transform: rotate(-30deg);
+  left: 80.2%;
+  top: 51.7%;
+  transform: translate(-50%, -50%) rotate(-30deg);
 }
 
 .hang-calc-hang-height {
