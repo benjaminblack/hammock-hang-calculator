@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import * as math from 'mathjs';
 import HangForm from './HangForm';
 import HangFigure from './HangFigure';
-import { UNITS_IMPERIAL, DEFAULT_DISTANCE_BETWEEN_TREES, DEFAULT_LENGTH_CHOICE, DEFAULT_SIT_HEIGHT, DEFAULT_WEIGHT, DEFAULT_HANG_ANGLE, DEFAULT_LENGTH } from './constants';
+import { UNITS_IMPERIAL, DEFAULT_DISTANCE_BETWEEN_TREES, DEFAULT_LENGTH_CHOICE, DEFAULT_SIT_HEIGHT, DEFAULT_WEIGHT, DEFAULT_HANG_ANGLE, DEFAULT_LENGTH, DEFAULT_UNITS } from './constants';
 
 import './HangApp.css';
 
 export { math };
 
 const HangApp = () => {
-  const [units, setUnits] = useState(UNITS_IMPERIAL);
+  const [units, setUnits] = useState(DEFAULT_UNITS);
   const [distanceBetweenTrees, setDistanceBetweenTrees] = useState(DEFAULT_DISTANCE_BETWEEN_TREES);
   const [lengthChoice, setLengthChoice] = useState(DEFAULT_LENGTH_CHOICE);
   const [length, setLength] = useState(DEFAULT_LENGTH);
