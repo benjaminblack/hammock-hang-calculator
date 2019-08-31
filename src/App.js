@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as math from 'mathjs';
 import hangCalculatorGraphic from './hang-calculator.jpg';
 import './App.css';
 import HangForm from './HangForm';
@@ -13,8 +14,28 @@ const App = () => {
   const [weight, setWeight] = useState(DEFAULT_WEIGHT);
   const [hangAngle, setHangAngle] = useState(DEFAULT_HANG_ANGLE);
 
+  const changeUnits = (newUnits) => {
+    if (newUnits === units) {
+      return;
+    }
+
+    setUnits(newUnits);
+
+    if (newUnits === UNITS_IMPERIAL) {
+      setDistanceBetweenTrees(math.unit(distanceBetweenTrees, 'm').toNumber('ft'));
+      setLength(math.unit(length, 'cm').toNumber('in'));
+      setSitHeight(math.unit(sitHeight, 'cm').toNumber('in'));
+      setWeight(math.unit('kg').toNumber('lb'));
+    } else {
+      setDistanceBetweenTrees(math.unit(distanceBetweenTrees, 'ft').toNumber('m'));
+      setLength(math.unit(length, 'in').toNumber('cm'));
+      setSitHeight(math.unit(sitHeight, 'in').toNumber('cm'));
+      setWeight(math.unit('lb').toNumber('kg'));
+    }
+  };
+
   const formProps = {
-    units, setUnits,
+    units, changeUnits,
     distanceBetweenTrees, setDistanceBetweenTrees,
     lengthChoice, setLengthChoice,
     length, setLength,
