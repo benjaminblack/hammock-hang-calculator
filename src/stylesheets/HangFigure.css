@@ -28,6 +28,7 @@
   line-height: 1;
   color: white;
   background-color: var(--bgcolor, black);
+  white-space: nowrap;
 }
 
 @media (max-width: 822px) {

@@ -5,7 +5,7 @@ import hangCalculatorGraphic from './hang-calculator.png';
 
 import { UNITS_IMPERIAL, LENGTH_CHOICE_RIDGELINE } from './constants';
 
-import './HangFigure.css';
+import './stylesheets/HangFigure.css';
 
 const shear = (weight, angle) => weight / (2 * Math.tan(angle * Math.PI / 180.0));
 const tension = (weight, angle) => weight / (2 * Math.sin(angle * Math.PI / 180));

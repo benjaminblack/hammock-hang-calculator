@@ -6,7 +6,7 @@ import store from './store';
 import HangApp from './HangApp';
 import * as serviceWorker from './serviceWorker';
 
-import './index.css';
+import './stylesheets/index.css';
 
 console.log(store.getState());
 

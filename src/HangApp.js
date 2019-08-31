@@ -4,7 +4,7 @@ import HangForm from './HangForm';
 import HangFigure from './HangFigure';
 import { UNITS_IMPERIAL, DEFAULT_DISTANCE_BETWEEN_TREES, DEFAULT_LENGTH_CHOICE, DEFAULT_SIT_HEIGHT, DEFAULT_WEIGHT, DEFAULT_HANG_ANGLE, DEFAULT_LENGTH, DEFAULT_UNITS } from './constants';
 
-import './HangApp.css';
+import './stylesheets/HangApp.css';
 
 export { math };
 

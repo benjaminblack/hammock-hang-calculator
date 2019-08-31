@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './HangForm.css';
+import './stylesheets/HangForm.css';
 import { UNITS_IMPERIAL, UNITS_METRIC, LENGTH_CHOICE_RIDGELINE, LENGTH_CHOICE_HAMMOCK, HANG_ANGLE_CHOICES } from './constants';
 
 const HangForm = (props) => {
