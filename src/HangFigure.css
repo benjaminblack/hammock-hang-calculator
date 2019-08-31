@@ -1,0 +1,99 @@
+.hang-figure {
+  position: relative;
+  margin: 0;
+}
+
+.hang-graphic {
+  display: block;
+  max-width: 100%;
+}
+
+.hang-calculations {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hang-calc {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: white;
+  background-color: var(--bgcolor, black);
+}
+
+.hang-calc-angle {
+  --bgcolor: #28a9e0;
+}
+
+.hang-calc-sit-height,
+.hang-calc-tree-distance,
+.hang-calc-hang-height,
+.hang-calc-ridgeline,
+.hang-calc-suspension-length {
+  --bgcolor: #ed2124;
+}
+
+.hang-calc-shear,
+.hang-calc-weight,
+.hang-calc-tension {
+  --bgcolor: #8cc540;
+}
+
+.hang-calc-angle {
+  left: 89.1%;
+  top: 75.2%;
+}
+
+.hang-calc-weight {
+  left: 45.3%;
+  top: 86.2%;
+}
+
+.hang-calc-ridgeline {
+  left: 52.5%;
+  top: 48.2%;
+}
+
+.hang-calc-suspension-length {
+  left: 25.8%;
+  top: 85.8%;
+}
+
+.hang-calc-sit-height {
+  left: 67.5%;
+  top: 90.8%;
+}
+
+.hang-calc-tree-distance {
+  left: 52.4%;
+  top: 25.1%;
+}
+
+.hang-calc-shear {
+  left: 23.9%;
+  top: 36.3%;
+}
+
+.hang-calc-tension {
+  left: 89.7%;
+  top: 37.5%;
+}
+
+.hang-calc-hang-height {
+  left: 6.8%;
+  top: 23.4%;
+}
+
+.hang-calc .units {
+  margin-left: 0.5ch;
+}

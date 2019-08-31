@@ -20,3 +20,10 @@
 .units {
   margin-left: 1ch;
 }
+
+.disclaimer {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  justify-self: center;
+}

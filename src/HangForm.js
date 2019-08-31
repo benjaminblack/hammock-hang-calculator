@@ -71,6 +71,8 @@ const HangForm = (props) => {
         <span className="units">&deg;</span>
       </div>
 
+      <small className="disclaimer"><b>DISCLAIMER</b>: This program is for estimating and entertainment purposes only.</small>
+
     </form>
   );
 };
