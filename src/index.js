@@ -8,8 +8,6 @@ import * as serviceWorker from './serviceWorker';
 
 import './stylesheets/index.css';
 
-console.log(store.getState());
-
 const render = () => ReactDOM.render(
   <Provider store={store}>
     <HangApp/>
