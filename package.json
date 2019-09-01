@@ -17,7 +17,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync --delete build s3://hammock-hang-calculator; aws cloudfront create-invalidation --distribution-id E107KW6NSPWZG9 --paths \"/*\""
+    "deploy": "aws s3 sync --delete build s3://hammock-hang-calculator; aws cloudfront create-invalidation --distribution-id E107KW6NSPWZG9 --paths \"/*\"",
+    "postdeploy": "npm run invalidate",
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E107KW6NSPWZG9 --paths \"/*\""
   },
   "eslintConfig": {
     "extends": "react-app"
