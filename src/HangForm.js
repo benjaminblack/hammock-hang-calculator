@@ -55,7 +55,7 @@ const HangForm = (props) => {
       <label className="label-weight-in-hammock" htmlFor="input-weight-in-hammock">Weight in hammock</label>
       <div className="weight-in-hammock">
         <input type="number" min="0" step="1" id="input-weight-in-hammock" name="input-weight-in-hammock" value={state.weight.toLocaleString('en', {maximumFractionDigits: 1})} onChange={(e) => dispatch(actions.setWeight(+e.target.value))}/>
-        {unitSpan(state.units, 'lb', 'kg', true, state.weight)}
+        {unitSpan(state.units, 'lb', 'kg')}
       </div>
 
       <label className="label-hang-angle" htmlFor="input-hang-angle">Hang angle</label>

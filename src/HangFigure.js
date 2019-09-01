@@ -45,7 +45,7 @@ const HangFigure = (props) => {
           {format(state.hangAngle)} <span className="units">&deg;</span>
         </li>
         <li className="hang-calc hang-calc-weight">
-          {format(state.weight)} {unitSpan(state.units, 'lb', 'kg', true, state.weight)}
+          {format(state.weight)} {unitSpan(state.units, 'lb', 'kg')}
         </li>
         <li className="hang-calc hang-calc-ridgeline">
           {format(length)} {unitSpan(state.units, 'in', 'cm')}
@@ -63,10 +63,10 @@ const HangFigure = (props) => {
           {format(state.distanceBetweenTrees)} {unitSpan(state.units, 'ft', 'm')}
         </li>
         <li className="hang-calc hang-calc-shear">
-          {format(shearForce)} {unitSpan(state.units, 'lb', 'kg', true, shearForce)}
+          {format(shearForce)} {unitSpan(state.units, 'lb', 'kg')}
         </li>
         <li className="hang-calc hang-calc-tension">
-          {format(tensileForce)} {unitSpan(state.units, 'lb', 'kg', true, tensileForce)}
+          {format(tensileForce)} {unitSpan(state.units, 'lb', 'kg')}
         </li>
       </ul>
     </figure>
