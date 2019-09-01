@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import * as math from 'mathjs';
+import { unit } from 'mathjs';
 
 import hangCalculatorGraphic from './hang-calculator.png';
 import { unitSpan } from './lib';
@@ -30,7 +30,7 @@ const HangFigure = (props) => {
     ? state.length
     : state.length * Math.cos(state.hangAngle * Math.PI / 180);
 
-  const distanceBetweenTreesInLengthUnits = state.units === UNITS_IMPERIAL ? math.unit(state.distanceBetweenTrees, 'ft').toNumber('in') : math.unit(state.distanceBetweenTrees, 'm').toNumber('cm')
+  const distanceBetweenTreesInLengthUnits = state.units === UNITS_IMPERIAL ? unit(state.distanceBetweenTrees, 'ft').toNumber('in') : unit(state.distanceBetweenTrees, 'm').toNumber('cm')
   const suspensionLength = (distanceBetweenTreesInLengthUnits - length) / 2 / Math.cos(state.hangAngle * Math.PI / 180);
   const hangHeight = Math.tan(state.hangAngle * Math.PI / 180) * distanceBetweenTreesInLengthUnits / 2 + state.sitHeight;
   const shearForce = shear(state.weight, state.hangAngle);
