@@ -35,6 +35,11 @@
   white-space: nowrap;
 }
 
+.length-choice {
+  font-size: inherit;
+  padding: 0 0.25em;
+}
+
 .hang-form .units {
   margin-left: 1ch;
 }
