@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { unit } from 'mathjs';
+import * as math from 'mathjs';
 
 import hangCalculatorGraphic from './hang-calculator.png';
 import { unitSpan } from './lib';
@@ -9,9 +9,24 @@ import { UNITS_IMPERIAL, LENGTH_CHOICE_RIDGELINE, HANG_GRAPHIC_LQIP } from './co
 
 import './stylesheets/HangFigure.css';
 
-const shear = (weight, angle) => weight / (2 * Math.tan(angle * Math.PI / 180.0));
-const tension = (weight, angle) => weight / (2 * Math.sin(angle * Math.PI / 180));
 const format = (num) => <span className="num">{num.toLocaleString('en', {maximumFractionDigits: 1})}</span>;
+
+function tension(units, weight, angle) {
+  const mass = units === UNITS_IMPERIAL ? math.unit(weight, 'lb') : math.unit(weight, 'kg');
+  const halfMass = math.multiply(mass, 0.5);
+  const force = halfMass.multiply(math.unit(9.8, 'm / s^2'));
+  const xForce = math.multiply(force, math.sin(math.unit(angle, 'deg')));
+
+  return units === UNITS_IMPERIAL ? xForce.toNumber('lbf') : xForce.toNumber('N');
+}
+
+function shear(units, weight, angle) {
+  const mass = units === UNITS_IMPERIAL ? math.unit(weight, 'lb') : math.unit(weight, 'kg');
+  const halfMass = math.multiply(mass, 0.5);
+  const force = halfMass.multiply(math.unit(9.8, 'm / s^2'));
+  const xForce = math.multiply(force, math.cos(math.unit(angle, 'deg')));
+  return units === UNITS_IMPERIAL ? xForce.toNumber('lbf') : xForce.toNumber('N');
+}
 
 const HangFigure = (props) => {
   const state = useSelector((state) => ({
@@ -30,11 +45,11 @@ const HangFigure = (props) => {
     ? state.length
     : state.length * Math.cos(state.hangAngle * Math.PI / 180);
 
-  const distanceBetweenTreesInLengthUnits = state.units === UNITS_IMPERIAL ? unit(state.distanceBetweenTrees, 'ft').toNumber('in') : unit(state.distanceBetweenTrees, 'm').toNumber('cm')
+  const distanceBetweenTreesInLengthUnits = state.units === UNITS_IMPERIAL ? math.unit(state.distanceBetweenTrees, 'ft').toNumber('in') : math.unit(state.distanceBetweenTrees, 'm').toNumber('cm')
   const suspensionLength = (distanceBetweenTreesInLengthUnits - length) / 2 / Math.cos(state.hangAngle * Math.PI / 180);
   const hangHeight = Math.tan(state.hangAngle * Math.PI / 180) * distanceBetweenTreesInLengthUnits / 2 + state.sitHeight;
-  const shearForce = shear(state.weight, state.hangAngle);
-  const tensileForce = tension(state.weight, state.hangAngle);
+  const shearForce = shear(state.units, state.weight, state.hangAngle);
+  const tensileForce = tension(state.units, state.weight, state.hangAngle);
 
   return (
     <figure className="hang-figure">
@@ -63,10 +78,10 @@ const HangFigure = (props) => {
           {format(state.distanceBetweenTrees)} {unitSpan(state.units, 'ft', 'm')}
         </li>
         <li className="hang-calc hang-calc-shear">
-          {format(shearForce)} {unitSpan(state.units, 'lbs', 'kg')}
+          {format(shearForce)} {unitSpan(state.units, 'lbf', 'N')}
         </li>
         <li className="hang-calc hang-calc-tension">
-          {format(tensileForce)} {unitSpan(state.units, 'lbs', 'kg')}
+          {format(tensileForce)} {unitSpan(state.units, 'lbf', 'N')}
         </li>
       </ul>
     </figure>
